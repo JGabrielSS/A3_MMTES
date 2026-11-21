@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Museu Militar Naval</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --ink: #14202e;
+            --mute: #5b6673;
+            --line: #e1e6ec;
+            --soft: #f4f6f9;
+            --acc: #1f4e6b;
+            --onacc: #ffffff;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f161d;
+                --ink: #e6ebf1;
+                --mute: #9aa6b3;
+                --line: #26313c;
+                --soft: #161f28;
+                --acc: #7fb2d4;
+                --onacc: #0f161d
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0f161d;
+            --ink: #e6ebf1;
+            --mute: #9aa6b3;
+            --line: #26313c;
+            --soft: #161f28;
+            --acc: #7fb2d4;
+            --onacc: #0f161d
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 16px/1.6 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif
+        }
+
+        a {
+            color: var(--acc)
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--acc);
+            outline-offset: 2px
+        }
+
+        .w {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px
+        }
+
+        header {
+            border-bottom: 1px solid var(--line)
+        }
+
+        header .w {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px 24px;
+            padding-top: 16px;
+            padding-bottom: 16px
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--ink);
+            text-decoration: none
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 20px
+        }
+
+        nav a {
+            color: var(--mute);
+            text-decoration: none;
+            font-size: .95rem
+        }
+
+        nav a:hover {
+            color: var(--ink);
+            text-decoration: underline
+        }
+
+        .intro {
+            padding: 56px 0 28px
+        }
+
+        h1 {
+            font-size: clamp(1.9rem, 5vw, 2.8rem);
+            line-height: 1.15;
+            font-weight: 600;
+            margin: 0 0 12px;
+            max-width: 20ch
+        }
+
+        .intro p {
+            color: var(--mute);
+            max-width: 62ch;
+            margin: 0
+        }
+
+        .strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            margin-top: 28px
+        }
+
+        .strip div {
+            padding: 18px 20px 18px 0
+        }
+
+        .strip div+div {
+            padding-left: 20px;
+            border-left: 1px solid var(--line)
+        }
+
+        .strip b {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px
+        }
+
+        .strip span {
+            color: var(--mute);
+            display: block;
+            font-size: .95rem
+        }
+
+        section {
+            padding: 48px 0 8px
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0 0 6px
+        }
+
+        .lead {
+            color: var(--mute);
+            margin: 0 0 20px;
+            max-width: 62ch
+        }
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px
+        }
+
+        input,
+        select,
+        textarea {
+            font: inherit;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            padding: 8px 10px;
+            border-radius: 4px
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--acc)
+        }
+
+        .tools input {
+            flex: 1 1 220px
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 60px 1.2fr 110px 120px 2fr;
+            gap: 12px;
+            padding: 12px 0;
+            border-top: 1px solid var(--line);
+            align-items: baseline
+        }
+
+        .row.h {
+            color: var(--mute);
+            font-size: .85rem;
+            font-weight: 500;
+            border-top: 0;
+            border-bottom: 1px solid var(--ink);
+            padding: 6px 0
+        }
+
+        .row .t {
+            font-weight: 500
+        }
+
+        .row .m {
+            color: var(--mute);
+            font-size: .95rem
+        }
+
+        .count {
+            color: var(--mute);
+            font-size: .9rem;
+            margin: 8px 0 0
+        }
+
+        .cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px 40px
+        }
+
+        .cols h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 8px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%
+        }
+
+        td,
+        th {
+            text-align: left;
+            padding: 7px 0;
+            border-bottom: 1px solid var(--line);
+            font-weight: 400;
+            vertical-align: top
+        }
+
+        td:last-child {
+            text-align: right;
+            color: var(--mute)
+        }
+
+        ul.plain {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--mute)
+        }
+
+        ul.plain li {
+            margin: 4px 0
+        }
+
+        .exp {
+            border-top: 1px solid var(--line);
+            padding: 14px 0;
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 4px 20px
+        }
+
+        .exp b {
+            font-weight: 600
+        }
+
+        .exp span {
+            color: var(--mute)
+        }
+
+        details {
+            border-top: 1px solid var(--line);
+            padding: 12px 0
+        }
+
+        details:last-of-type {
+            border-bottom: 1px solid var(--line)
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 500
+        }
+
+        details p {
+            margin: 8px 0 0;
+            color: var(--mute);
+            max-width: 62ch
+        }
+
+        form {
+            max-width: 520px
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 4px;
+            font-size: .92rem;
+            font-weight: 500
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%
+        }
+
+        .btn {
+            margin-top: 16px;
+            background: var(--acc);
+            color: var(--onacc);
+            border: 0;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font: inherit;
+            font-weight: 500;
+            cursor: pointer
+        }
+
+        .btn:hover {
+            filter: brightness(1.12)
+        }
+
+        #msg {
+            margin-top: 14px;
+            padding: 10px 12px;
+            border-left: 3px solid var(--acc);
+            background: var(--soft);
+            max-width: 520px
+        }
+
+        footer {
+            margin-top: 56px;
+            border-top: 1px solid var(--line);
+            padding: 24px 0 40px;
+            color: var(--mute);
+            font-size: .9rem
+        }
+
+        @media (max-width:680px) {
+            .row {
+                grid-template-columns: 48px 1fr;
+                gap: 2px 12px
+            }
+
+            .row.h {
+                display: none
+            }
+
+            .row .c,
+            .row .e,
+            .row .d {
+                grid-column: 2
+            }
+
+            .exp {
+                grid-template-columns: 1fr
+            }
+
+            .strip div+div {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--line)
+            }
+
+            .strip div {
+                padding-right: 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="w">
+            <a class="brand" href="#topo">Museu Militar Naval</a>
+            <nav aria-label="Principal"><a href="#acervo">Acervo</a><a href="#exposicoes">Exposições</a><a
+                    href="#visita">Visita</a><a href="#educativo">Educativo</a><a href="#duvidas">Dúvidas</a><a
+                    href="#contato">Contato</a></nav>
+        </div>
+    </header>
+
+    <main id="topo">
+        <div class="w">
+            <div class="intro">
+                <h1>História naval e marítima do Brasil</h1>
+                <p>Acervo de armas, uniformes, instrumentos de navegação e documentos que registram a trajetória da
+                    Marinha.</p>
+                <div class="strip">
+                    <div><b>Horários</b><span>Terça a sexta, 9h às 17h</span><span>Sábado e domingo, 10h às
+                            16h</span><span>Segunda, fechado</span></div>
+                    <div><b>Ingressos</b><span>Inteira R$ 15</span><span>Meia-entrada R$ 7,50</span><span>Até 10 anos,
+                            grátis</span></div>
+                    <div><b>Endereço</b><span>Av. da Saudade, 1, Centro</span><span>Rio de Janeiro,
+                            RJ</span><span>Acesso por rampa e elevador</span></div>
+                </div>
+            </div>
+
+            <section id="acervo">
+                <h2>Acervo</h2>
+                <p class="lead">Busque por nome, categoria ou época.</p>
+                <div class="tools">
+                    <input id="q" type="search" placeholder="Buscar peça" aria-label="Buscar peça">
+                    <select id="cat" aria-label="Categoria">
+                        <option value="">Todas as categorias</option>
+                        <option>Armas</option>
+                        <option>Uniformes</option>
+                        <option>Navegação</option>
+                    </select>
+                    <select id="ord" aria-label="Ordenar">
+                        <option value="n">Ordenar por número</option>
+                        <option value="t">Ordenar por nome</option>
+                    </select>
+                </div>
+                <div class="row h">
+                    <span>Nº</span><span>Peça</span><span>Categoria</span><span>Época</span><span>Descrição</span>
+                </div>
+                <div id="list"></div>
+                <p class="count" id="count" role="status"></p>
+            </section>
+
+            <section id="exposicoes">
+                <h2>Exposições</h2>
+                <p class="lead">Em cartaz no museu. Informações fictícias.</p>
+                <div class="exp"><b>Permanente</b>
+                    <div><b>Do convés ao porto</b><br><span>Armas, uniformes e objetos de bordo, do século XIX ao XX.
+                            Térreo e 1º andar.</span></div>
+                </div>
+                <div class="exp"><b>Até 30 de março</b>
+                    <div><b>Cartas e rotas</b><br><span>Cartas náuticas, diários de bordo e instrumentos de navegação.
+                            2º andar.</span></div>
+                </div>
+                <div class="exp"><b>Em breve</b>
+                    <div><b>Vida a bordo</b><br><span>O cotidiano da tripulação em fotografias e objetos
+                            pessoais.</span></div>
+                </div>
+            </section>
+
+            <section id="visita">
+                <h2>Visita</h2>
+                <p class="lead">Informações práticas para planejar o dia.</p>
+                <div class="cols">
+                    <div>
+                        <h3>Como chegar</h3>
+                        <ul class="plain">
+                            <li>Metrô: estação Centro, 8 minutos a pé</li>
+                            <li>Ônibus: linhas com ponto em frente ao museu</li>
+                            <li>Barcas: terminal a 600 m</li>
+                            <li>Estacionamento conveniado ao lado</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Tempo de visita</h3>
+                        <table>
+                            <tr>
+                                <td>Visita livre</td>
+                                <td>1h30</td>
+                            </tr>
+                            <tr>
+                                <td>Visita guiada</td>
+                                <td>1h</td>
+                            </tr>
+                            <tr>
+                                <td>Visita escolar</td>
+                                <td>2h</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h3>Orientações</h3>
+                        <ul class="plain">
+                            <li>Fotografias permitidas, sem flash</li>
+                            <li>Mochilas grandes ficam no guarda-volumes</li>
+                            <li>Não é permitido tocar nas peças</li>
+                            <li>Cães de assistência são bem-vindos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Acessibilidade</h3>
+                        <ul class="plain">
+                            <li>Rampas e elevador em todos os andares</li>
+                            <li>Banheiros adaptados</li>
+                            <li>Cadeiras de rodas para empréstimo</li>
+                            <li>Textos das exposições em fonte ampliada</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="educativo">
+                <h2>Educativo</h2>
+                <p class="lead"> Visitas individuais, escolares e para fins de pesquisa necessitam de agendamento prévio.</p>
+                <div class="cols">
+                    <div>
+                        <h3>Ensino fundamental</h3>
+                        <p class="lead">Roteiro de 2 horas com atividade em grupo sobre navegação e vida a bordo.</p>
+                    </div>
+                    <div>
+                        <h3>Ensino médio</h3>
+                        <p class="lead">Visita temática sobre história naval e cartografia, com material de apoio ao
+                            professor.</p>
+                    </div>
+                    <div>
+                        <h3>Pesquisa</h3>
+                        <p class="lead">Consulta ao acervo documental com solicitação antecipada de 5 dias úteis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="duvidas">
+                <h2>Dúvidas frequentes</h2>
+                <details>
+                    <summary>Preciso comprar o ingresso antes?</summary>
+                    <p>Não. No protótipo, a compra acontece na bilheteria. Em versões futuras, haverá venda online.</p>
+                </details>
+                <details>
+                    <summary>O museu tem visita guiada?</summary>
+                    <p>Sim, de terça a sexta às 10h e às 14h. Grupos acima de 10 pessoas devem agendar.</p>
+                </details>
+                <details>
+                    <summary>Há lanchonete ou loja?</summary>
+                    <p>Há uma lanchonete no térreo e uma loja de publicações e lembranças.</p>
+                </details>
+                <details>
+                    <summary>Posso levar crianças pequenas?</summary>
+                    <p>Sim. Crianças até 10 anos não pagam ingresso e devem estar acompanhadas por um adulto.</p>
+                </details>
+            </section>
+
+            <section id="contato">
+                <h2>Contato e agendamento</h2>
+                <p class="lead">Telefone (21) 0000-0000, e-mail contato@museunaval.exemplo. Ou envie o pedido abaixo.
+                </p>
+                <form onsubmit="return false">
+                    <label for="n">Nome</label><input id="n" autocomplete="name">
+                    <label for="e">E-mail</label><input id="e" type="email" autocomplete="email">
+                    <label for="t">Tipo de visita</label><select id="t">
+                        <option>Individual</option>
+                        <option>Grupo escolar</option>
+                        <option>Grupo de pesquisa</option>
+                    </select>
+                    <label for="m">Mensagem</label><textarea id="m" rows="4"></textarea>
+                    <button class="btn" id="send">Enviar pedido</button>
+                    <div id="msg" role="status" hidden></div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="w">Protótipo com todo o conteúdo fictício e ilustrativo.</div>
+    </footer>
+
+    <script>
+        var P = [
+
+            { n: "015", t: "Âncora naval", c: "Equipamentos Navais", e: "Séc. XIX", d: "Equipamento utilizado para manter embarcações fundeadas." },
+            { n: "016", t: "Bússola marítima", c: "Navegação", e: "Séc. XIX", d: "Instrumento utilizado para orientação e determinação de rumos no mar." },
+            { n: "017", t: "Sextante náutico", c: "Navegação", e: "Séc. XIX", d: "Instrumento empregado na determinação da posição geográfica por meio da observação dos astros." },
+            { n: "018", t: "Luneta naval", c: "Navegação", e: "Séc. XIX", d: "Instrumento óptico utilizado para observação de embarcações e objetos distantes." },
+            { n: "019", t: "Espada de oficial da Marinha", c: "Armas", e: "Séc. XX", d: "Arma cerimonial utilizada por oficiais da Marinha em solenidades militares." },
+            { n: "020", t: "Uniforme de oficial naval", c: "Uniformes", e: "Séc. XX", d: "Uniforme histórico utilizado por oficiais da Marinha em serviço." },
+            { n: "021", t: "Capacete de marinheiro", c: "Uniformes", e: "Séc. XX", d: "Equipamento de proteção individual utilizado em atividades navais." },
+            { n: "022", t: "Sino de bordo", c: "Equipamentos Navais", e: "Séc. XIX", d: "Sino utilizado para marcar horários e transmitir sinais a bordo das embarcações." },
+            { n: "023", t: "Roda do leme", c: "Equipamentos Navais", e: "Séc. XIX", d: "Dispositivo utilizado para controlar a direção e o rumo de uma embarcação." },
+            { n: "024", t: "Telégrafo de máquinas", c: "Comunicações", e: "Séc. XX", d: "Equipamento utilizado para transmitir ordens de velocidade e manobra à praça de máquinas." },
+            { n: "025", t: "Rádio transmissor naval", c: "Comunicações", e: "Séc. XX", d: "Equipamento empregado na comunicação entre embarcações e estações em terra." },
+            { n: "026", t: "Bandeira de sinalização", c: "Comunicações", e: "Séc. XX", d: "Bandeira utilizada para transmitir mensagens visuais entre embarcações." },
+            { n: "027", t: "Torpedo naval", c: "Armas", e: "Séc. XX", d: "Artefato autopropulsado empregado no combate contra embarcações e submarinos." },
+            { n: "028", t: "Mina naval", c: "Armas", e: "Séc. XX", d: "Artefato explosivo desenvolvido para emprego contra embarcações em áreas marítimas." },
+            { n: "029", t: "Metralhadora naval", c: "Armas", e: "Séc. XX", d: "Arma automática utilizada na defesa de embarcações militares." },
+            { n: "030", t: "Binóculo militar", c: "Navegação", e: "Séc. XX", d: "Instrumento óptico utilizado na observação e identificação de alvos e embarcações." },
+            { n: "031", t: "Mapa hidrográfico", c: "Documentos", e: "Séc. XX", d: "Documento cartográfico contendo informações sobre profundidades, obstáculos e características de áreas navegáveis." },
+            { n: "032", t: "Diário de navegação", c: "Documentos", e: "Séc. XX", d: "Registro histórico das atividades, ocorrências e condições de navegação de uma embarcação." },
+            { n: "033", t: "Maquete de encouraçado", c: "Modelismo Naval", e: "Séc. XX", d: "Modelo em escala que representa um navio de guerra utilizado em operações navais." },
+            { n: "034", t: "Modelo de submarino", c: "Modelismo Naval", e: "Séc. XX", d: "Representação em escala de uma embarcação militar destinada à navegação submersa." },
+            { n: "035", t: "Bote salva-vidas", c: "Segurança Naval", e: "Séc. XX", d: "Embarcação auxiliar destinada à evacuação e ao salvamento de tripulantes." },
+            { n: "036", t: "Colete salva-vidas", c: "Segurança Naval", e: "Séc. XX", d: "Equipamento individual de flutuação utilizado em situações de emergência no mar." },
+            { n: "037", t: "Farol de navegação", c: "Equipamentos Navais", e: "Séc. XX", d: "Dispositivo luminoso utilizado para sinalização e orientação durante a navegação." },
+            { n: "038", t: "Medalha de mérito naval", c: "Condecorações", e: "Séc. XX", d: "Condecoração concedida em reconhecimento a serviços relevantes prestados à Marinha." },
+            { n: "039", t: "Flâmula de comissão", c: "Heráldica Naval", e: "Séc. XX", d: "Insígnia utilizada para representar a condição de navio em comissão de serviço." },
+            { n: "040", t: "Placa de identificação de navio", c: "Memória Naval", e: "Séc. XX", d: "Placa histórica contendo o nome e informações de identificação de uma embarcação militar." },
+            { n: "014", t: "Canhão de bordo", c: "Armas", e: "Séc. XIX", d: "Peça de artilharia instalada em navios de guerra." },
+            { n: "027", t: "Sabre de oficial de Marinha", c: "Armas", e: "Início do séc. XX", d: "Arma branca de cerimônia, com empunhadura ornamentada." },
+            { n: "031", t: "Uniforme de gala", c: "Uniformes", e: "Séc. XX", d: "Uniforme de solenidades, com botões dourados e divisas." },
+            { n: "045", t: "Gorro de marinheiro", c: "Uniformes", e: "Séc. XX", d: "Peça do uniforme de serviço usada no dia a dia a bordo." },
+            { n: "052", t: "Carta náutica", c: "Navegação", e: "Séc. XX", d: "Carta anotada à mão para traçar a derrota do navio." },
+            { n: "060", t: "Diário de bordo", c: "Navegação", e: "Séc. XX", d: "Registro diário de posição, rumo e ocorrências da viagem." }];
+        var L = document.getElementById("list"), q = document.getElementById("q"), cat = document.getElementById("cat"), ord = document.getElementById("ord"), cnt = document.getElementById("count");
+        function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") }
+        function draw() {
+            var k = norm(q.value), c = cat.value;
+            var r = P.filter(function (p) { return (!c || p.c === c) && (!k || norm(p.t + " " + p.c + " " + p.e + " " + p.d).indexOf(k) > -1) });
+            r.sort(function (a, b) { return ord.value === "t" ? a.t.localeCompare(b.t, "pt") : a.n.localeCompare(b.n) });
+            L.innerHTML = ""; r.forEach(function (p) {
+                var d = document.createElement("div"); d.className = "row";
+                d.innerHTML = '<span class="m">' + p.n + '</span><span class="t">' + p.t + '</span><span class="c m">' + p.c + '</span><span class="e m">' + p.e + '</span><span class="d">' + p.d + '</span>'; L.appendChild(d)
+            });
+            cnt.textContent = r.length ? r.length + " de " + P.length + " peças" : "Nenhuma peça encontrada. Tente outro termo ou limpe os filtros."
+        }
+        [q, cat, ord].forEach(function (x) { x.addEventListener("input", draw) }); draw();
+        document.getElementById("send").onclick = function () {
+            var n = document.getElementById("n").value.trim(), e = document.getElementById("e").value.trim(), m = document.getElementById("msg");
+            m.hidden = false; m.textContent = (!n || !e) ? "Preencha nome e e-mail para enviar o pedido." : "Pedido enviado, " + n + ". Responderemos por e-mail em até 2 dias úteis. (simulação do protótipo)"
+        };
+    </script>
+</body>
+
+</html>
